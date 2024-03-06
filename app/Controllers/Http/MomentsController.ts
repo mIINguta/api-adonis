@@ -37,15 +37,18 @@ export default class MomentsController {
     }
 
     public async index(){
-        const moments = await Moment.all()
+        //agora temos relacionamento com comments, preload faz isso
+        const moments = await Moment.query().preload("comments")
 
         return {
             data: moments
         }
     }
 
-    public async show({params} :HttpContextContract){
+    public async show({params}:HttpContextContract){
         const moment = await Moment.findOrFail(params.id)
+
+        await moment.load("comments")
     
         return {
             data:moment

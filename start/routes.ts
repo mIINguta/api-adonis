@@ -30,6 +30,8 @@ Route.resource('/moments', 'MomentsController').apiOnly()
 //utiliza resource para criar outras rotas automaticamente
 //apiOnly evita que rotas que não se referem a api sejam criadas
 
+Route.post('/moments/:momentId/comments', 'CommentsController.store')
+
 
 }).prefix('/api');
 
