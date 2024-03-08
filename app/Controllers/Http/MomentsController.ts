@@ -16,12 +16,11 @@ export default class MomentsController {
         const image = request.file('image', this.validationOptions);
 
         if(image){
-            const imageName = `${uuidv4}.${image.extname}`
+            const imageName = `${uuidv4()}.${image.extname}`
 
-            await image.move(Application.tmpPath('uploads')), {
+            await image.move(Application.tmpPath('uploads'), {
                 name: imageName
-            }
-
+            });
             body.image = imageName
         }
 
@@ -47,6 +46,7 @@ export default class MomentsController {
 
     public async show({params}:HttpContextContract){
         const moment = await Moment.findOrFail(params.id)
+        console.log(moment.image);
 
         await moment.load("comments")
     
