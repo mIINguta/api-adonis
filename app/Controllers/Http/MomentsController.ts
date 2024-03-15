@@ -76,15 +76,15 @@ export default class MomentsController {
             const image = request.file('image', this.validationOptions);
 
             if(image){
-            const imageName = `${uuidv4}.${image.extname}`
+            const imageName = `${uuidv4()}.${image.extname}`
            
-                await image.move(Application.tmpPath('uploads')), {
+                await image.move(Application.tmpPath('uploads'), {
                 name: imageName
-                }
+                });
             moment.image = imageName
             }
         
-    }
+    
 
         await moment.save()
 
@@ -93,6 +93,6 @@ export default class MomentsController {
             data: moment,
         }
         }
-
+}
         
     }
